@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: main
+    schedule:
+      interval: "monthly"
+      timezone: "Asia/Ho_Chi_Minh"
+    labels:
+      - "npm-dependencies"
+    pull-request-branch-name:
+      separator: "-"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: main
+    schedule:
+      interval: "monthly"
+      timezone: "Asia/Ho_Chi_Minh"
+    labels:
+      - "github-actions-dependencies"
+    pull-request-branch-name:
+      separator: "-"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
