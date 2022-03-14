@@ -1,7 +1,7 @@
 {
   "name": "pull-request-slack-notifier",
   "version": "1.0.0",
-  "description": "A Github Action to send a message to a Slack channel",
+  "description": "A Github Action to send a message to a Slack channel when an event occurs on a pull request",
   "main": "dist/index.js",
   "repository": "https://github.com/daint2git/pull-request-slack-notifier",
   "author": "daint2git",
