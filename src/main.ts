@@ -101,9 +101,9 @@ function isValidEvent(): boolean {
     return;
   }
 
-  const input = parseInput();
-
   try {
+    const input = parseInput();
+
     if (input.botToken.length === 0 && input.webhookUrl.length === 0) {
       throw new Error(
         'Need to provide at least one input "slack-bot-token" or "slack-webhook-url".'

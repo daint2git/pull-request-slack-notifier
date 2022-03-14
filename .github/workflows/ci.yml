@@ -18,7 +18,7 @@ env:
   PRIMARY_NODE_VERSION: 12
 
 jobs:
-  publish:
+  check:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Lint
-        run: yarn build
+        run: yarn lint
 
       - name: Build
         run: yarn build
