@@ -1,5 +1,5 @@
 name: 'Pull Request Slack Notifier'
-description: 'Sends a message to a Slack channel when a pull request is opened, reopened, merged, closed, commented, review commented, review approved or review dismissed'
+description: 'Sends a message to a Slack channel when an event occurs on a pull request'
 author: 'daint2git'
 branding:
   icon: 'message-circle'
