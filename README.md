@@ -1,6 +1,6 @@
 # Pull Request Slack Notifier
 
-[![ci](https://github.com/daint2git/pull-request-slack-notifier/workflows/ci/badge.svg)](https://github.com/daint2git/pull-request-slack-notifier/actions?query=workflow:ci)
+[![ci](https://github.com/daint2git/pull-request-slack-notifier/actions/workflows/ci.yml/badge.svg)](https://github.com/daint2git/pull-request-slack-notifier/actions?query=workflow:ci)
 
 A [GitHub Action](https://github.com/features/actions) to send a message to a Slack channel when a pull request is `opened`, `reopened`, `merged`, `closed`, `commented`, `review commented`, `review approved` or `review dismissed`.
 
