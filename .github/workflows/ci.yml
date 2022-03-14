@@ -18,7 +18,7 @@ env:
   PRIMARY_NODE_VERSION: 12
 
 jobs:
-  publish:
+  check:
     runs-on: ubuntu-latest
 
     steps:

@@ -40,6 +40,5 @@ jobs:
           slack-channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
           user-mapping: |
             {
-              "daint2git": ${{ secrets.SLACK_MEMBER_ID_DAINT2GIT }},
-              "daint-1849": ${{ secrets.SLACK_MEMBER_ID_DAINT_1849 }}
+              "daint2git": "U031WCF7G5T"
             }
