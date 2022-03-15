@@ -7,6 +7,7 @@ import type {
   TInput,
   TUser,
   TRequestedReviewers,
+  TRepository,
   TPullRequestWebhookEventPayload,
   TPullRequestReviewWebhookEventPayload,
   TIssueCommentWebhookEventPayload,
@@ -22,10 +23,7 @@ const DEFAULT_TEXT = 'This is a message from a github pull request.';
  * @param {string} name - branch name
  * @returns {string}
  */
-function generateBranchURL(
-  repository: typeof github.context['payload']['repository'],
-  name: string
-): string {
+function generateBranchURL(repository: TRepository, name: string): string {
   return `${repository?.html_url}/tree/${name}`;
 }
 
@@ -127,15 +125,21 @@ async function buildMessageContent(input: TInput): Promise<{
 
   switch (eventName) {
     case 'pull_request': {
-      const { number, pull_request, action, repository } = github.context
+      const { number, pull_request, action } = github.context
         .payload as TPullRequestWebhookEventPayload;
       const headBranchName = pull_request.head.ref;
       const baseBranchName = pull_request.base.ref;
 
       pullRequestNumber = number;
       title = pull_request.title;
-      head = [generateBranchURL(repository, headBranchName), headBranchName];
-      base = [generateBranchURL(repository, baseBranchName), baseBranchName];
+      head = [
+        generateBranchURL(pull_request.head.repo, headBranchName),
+        headBranchName,
+      ];
+      base = [
+        generateBranchURL(pull_request.base.repo, baseBranchName),
+        baseBranchName,
+      ];
       changedFiles = [
         `${pull_request.html_url}/files`,
         pull_request.changed_files,
@@ -176,15 +180,21 @@ async function buildMessageContent(input: TInput): Promise<{
     }
 
     case 'pull_request_review': {
-      const { pull_request, action, review, repository } = github.context
+      const { pull_request, action, review } = github.context
         .payload as TPullRequestReviewWebhookEventPayload;
       const headBranchName = pull_request.head.ref;
       const baseBranchName = pull_request.base.ref;
 
       pullRequestNumber = pull_request.number;
       title = pull_request.title;
-      head = [generateBranchURL(repository, headBranchName), headBranchName];
-      base = [generateBranchURL(repository, baseBranchName), baseBranchName];
+      head = [
+        generateBranchURL(pull_request.head.repo, headBranchName),
+        headBranchName,
+      ];
+      base = [
+        generateBranchURL(pull_request.base.repo, baseBranchName),
+        baseBranchName,
+      ];
       createdBy = pull_request.user.login;
       messageURL = review.html_url;
       labels = pull_request.labels.map((label) => label.name);
@@ -196,8 +206,8 @@ async function buildMessageContent(input: TInput): Promise<{
 
       const pullRequestDetail = await getPullRequestDetail({
         token: input.githubToken,
-        owner: repository.owner.login,
-        repo: repository.name,
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
         pull_number: pullRequestNumber,
       });
 
@@ -253,7 +263,7 @@ async function buildMessageContent(input: TInput): Promise<{
     }
 
     case 'issue_comment': {
-      const { issue, action, comment, repository } = github.context
+      const { issue, action, comment } = github.context
         .payload as TIssueCommentWebhookEventPayload;
       pullRequestNumber = issue.number;
       title = issue.title;
@@ -262,8 +272,8 @@ async function buildMessageContent(input: TInput): Promise<{
 
       const pullRequestDetail = await getPullRequestDetail({
         token: input.githubToken,
-        owner: repository.owner.login,
-        repo: repository.name,
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
         pull_number: pullRequestNumber,
       });
 
@@ -271,8 +281,14 @@ async function buildMessageContent(input: TInput): Promise<{
         const headBranchName = pullRequestDetail.head.ref;
         const baseBranchName = pullRequestDetail.base.ref;
 
-        head = [generateBranchURL(repository, headBranchName), headBranchName];
-        base = [generateBranchURL(repository, baseBranchName), baseBranchName];
+        head = [
+          generateBranchURL(pullRequestDetail.head.repo, headBranchName),
+          headBranchName,
+        ];
+        base = [
+          generateBranchURL(pullRequestDetail.base.repo, baseBranchName),
+          baseBranchName,
+        ];
         createdBy = pullRequestDetail.user?.login;
 
         changedFiles = [

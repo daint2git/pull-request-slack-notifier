@@ -33,3 +33,5 @@ export type TPullRequestReviewDismissedWebhookEventPayload =
 export type TUser = TPullRequestWebhookEventPayload['pull_request']['user'];
 export type TRequestedReviewers =
   TPullRequestWebhookEventPayload['pull_request']['requested_reviewers'];
+
+export type TRepository = TPullRequestWebhookEventPayload['repository'];
