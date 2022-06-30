@@ -13,7 +13,7 @@
   "dependencies": {
     "@actions/core": "1.6.0",
     "@actions/github": "5.0.0",
-    "@octokit/webhooks": "9.23.0",
+    "@octokit/webhooks": "9.26.0",
     "@slack/web-api": "6.7.0",
     "@slack/webhook": "6.1.0"
   },
