@@ -20,7 +20,7 @@ jobs:
       # This step will fail if there's no metadata and so the approval will not occur.
       - name: Dependabot metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v1.3.0
+        uses: dependabot/fetch-metadata@v1.3.6
         with:
           github-token: ${{ env.GITHUB_TOKEN }}
 
